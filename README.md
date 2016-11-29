@@ -44,7 +44,6 @@ dependencies {
 ```java
 public class RootApp extends Application {
 
-    @SuppressLint("StaticFieldLeak")
     private static Logger sLogger;
 
     @Override
