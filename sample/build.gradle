@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        lintOptions {
+            abortOnError false
+            checkReleaseBuilds false
+            quiet true
+            ignoreWarnings true
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../keystore/JiongBull.jks')
+            File localProperties = rootProject.file('local.properties');
+            def keystorePass, aliasName, aliasPass
+            if (localProperties.exists()) {
+                Properties properties = new Properties()
+                properties.load(localProperties.newDataInputStream())
+                keystorePass = properties.getProperty('keystorePass')
+                aliasName = properties.getProperty('aliasName')
+                aliasPass = properties.getProperty('aliasPass')
+            } else {
+                keystorePass = System.getenv('keystorePass')
+                aliasName = System.getenv("aliasName")
+                aliasPass = System.getenv("aliasPass")
+            }
+
+            storePassword keystorePass
+            keyAlias aliasName
+            keyPassword aliasPass
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+        }
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFile = new File(
+                            output.outputFile.parent + "/${variant.buildType.name}",
+                            "jlog_storage_qiniu_sample_${variant.buildType.name}.apk".toLowerCase())
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    def sampleModule = rootProject.ext.sampleModule
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile sampleModule.support
+    compile project(sampleModule.library)
+}

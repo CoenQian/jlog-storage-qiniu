@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">JlogStorageQiniuSample</string>
+    <string name="log">LOG</string>
+
+    <string name="github">GITHUB</string>
+    <string name="blog">BLOG</string>
+</resources>

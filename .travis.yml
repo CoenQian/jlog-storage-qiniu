@@ -1,0 +1,29 @@
+language: android
+sudo: false
+jdk:
+- oraclejdk8
+env:
+  matrix:
+  - ANDROID_TARGET=android-24  ANDROID_ABI=armeabi-v7a armeabi
+android:
+  components:
+  - platform-tools
+  - tools
+  - build-tools-25.0.1
+  - android-24
+  - extra-android-support
+  - extra-android-m2repository
+script:
+- "./gradlew assembleRelease"
+before_install:
+- openssl aes-256-cbc -K $encrypted_f484ee398990_key -iv $encrypted_f484ee398990_iv
+  -in keystore/JiongBull.jks.enc -out keystore/JiongBull.jks -d
+- chmod +x gradlew
+deploy:
+  provider: releases
+  api_key:
+    secure: HQaZQ0xGfqrPS8PPqdF29oVKAxoKZL4T6jOsVXFX4kZR27BkjQWGlDnuJ3HCWJZEqqxQzrji5EBMUwZaJpIqZxmMsohhB/M68vKiw+LSLs+qwJ9INGqkvCtsEzkqxvTfxjlaGQlfA1iFoF+voVfqvbGKKZhlDNRWsnTZfx+3yOzCO3cWLsuhPOyBqT/NYTKJDzDRf48Ifq3YQR8ThzHZrA4VbcGKmMGs17JQobYVbSGxLSLIpNnz6K9YSGH4R27jttSr8uG9hePYrkLI/3nBfMbjpOS55kBur5FnK8v3FlB+8gQ8yjoFThm2KQw1o38tqQXQHx0z6qKobGaJmYHn4Shw5xtqYVGD6HmdRVI9D1pvkoRAiKqAn0XKO13lCk9S4AcLcRoVbd5sTU64e1K8RUlQdSeExDRJwFZjZipySwlaL9ciFt43vXcOxq1JWvYlXSq7jggx8PSRIDvdhz++H2BWlOrMb+1xqveUmjkq7XzYekb5R4oTt9gi0MChoUQa5MXBwS/y0bzKcoMmzKs/LupwQlvtUik93S6yBe4i8zcbZ3BunsMKK/nidl+lgzsn0lIqJSZjoJmcgdXnGVu1zR+uRNk4zmLL8jF9Lr9KGCNVIuokwo4as3JTtkkFLcYC6n9RZ7MLOVyRtCcGvSwuNh37dXCSOmNw5deJLyg3iN8=
+  file: sample/build/outputs/apk/release/jlog_storage_qiniu_sample.apk
+  on:
+      tags: true
+      all_branches: true

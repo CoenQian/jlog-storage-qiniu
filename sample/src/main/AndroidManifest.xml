@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools" package="com.jiongbull.jlog.storage.qiniu.sample">
+
+    <application android:allowBackup="true"
+                 android:label="@string/app_name"
+                 android:name="com.jiongbull.jlog.storage.qiniu.sample.RootApp"
+                 android:theme="@style/AppTheme.Blue"
+                 android:icon="@mipmap/ic_launcher"
+                 tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <activity android:name="com.jiongbull.jlog.storage.qiniu.sample.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
