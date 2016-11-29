@@ -23,7 +23,7 @@ deploy:
   provider: releases
   api_key:
     secure: EWnObqxgPo5N5tYMRfIdPMZBpue9dNl6dk8AMOeBYgtHxDXHXNmIAmbLSHxZQ0oVUtPTQaGKEBbTrWw8kGup6COh3RvOY4X3ed3bOiTPFb+YxKgqXsx8+ZqQsh8BEBCnkCNZpRPpbM0ndqjoo0EoGh+3NoCQ5x2fTM8MSgRbNZT7/kBoxEQjpc+6KPRYtDudx1HmWRa2tByjmIbZHLUYr5VSauFmvt1cQa3Qnh9/pDQd4CO4h8a+XClH9LhBjOawLS+bIbrq7frG5ARYsGwiW/OC5IBSyJWS0381BZ851Qx+qodIjZ2nHTgDDsUedtElLsJXeW5zRiPjxkX3E9bLMWB3TWpFIr8IsiEfumrfsNoa91BiYpLWOD3XSC5dZcSUTN7bQSUomBQjDXOf9eEZ/EuKI/NjTojyAzSb10sNcdjWCKTomLKII8FPSbisWvofws17juJJVdkKhQL/wGUNQTS+FxCBpIrJQzAhUxLASqV5ED7ebWh5icBlxxhnR2GL/BO23JKso2LWhIzqhQEuP3qhuKMAiqaX8bWqPw51UoBh9sA3c5ENmKtw2Rmd+Q7nBoqf8kSn2gEbmZp6zcwAYNcKYrbadyTS3ugglZSUiryP0elkFPe5dd62ho0G6nhrKQHBm61NYVoC91HA2PBMPSY5BEViiDfpynCpL0SSgwY=
-  file: sample/build/outputs/apk/release/jlog_storage_qiniu_sample.apk
+  file: sample/build/outputs/apk/release/jlog_storage_qiniu_sample_release.apk
   on:
       tags: true
       all_branches: true
