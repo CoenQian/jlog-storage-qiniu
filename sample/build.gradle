@@ -70,5 +70,6 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile sampleModule.support
+    compile sampleModule.jlog
     compile project(sampleModule.library)
 }

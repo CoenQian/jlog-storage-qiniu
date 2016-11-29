@@ -23,6 +23,7 @@ ext {
     ]
     sampleModule = [
             support: "com.android.support:appcompat-v7:${supportVersion}",
+            jlog   : "com.github.JiongBull:jlog:${jlog}",
             library: ':library'
     ]
 }
