@@ -31,7 +31,7 @@ allprojects {
 
 ```groovy
 dependencies {
-     compile 'com.github.JiongBull:jlog-storage-qiniu:0.0.1'
+     compile 'com.github.JiongBull:jlog-storage-qiniu:0.1.0'
 }
 ```
 
