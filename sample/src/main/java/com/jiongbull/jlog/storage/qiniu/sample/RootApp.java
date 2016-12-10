@@ -16,12 +16,12 @@
 
 package com.jiongbull.jlog.storage.qiniu.sample;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
+
 import com.jiongbull.jlog.Logger;
 import com.jiongbull.jlog.storage.qiniu.QiniuConfigs;
 import com.jiongbull.jlog.storage.qiniu.QiniuStorage;
-
-import android.annotation.SuppressLint;
-import android.app.Application;
 
 /**
  * Root application.
@@ -30,6 +30,10 @@ public class RootApp extends Application {
 
     @SuppressLint("StaticFieldLeak")
     private static Logger sLogger;
+
+    public static Logger getLogger() {
+        return sLogger;
+    }
 
     @Override
     public void onCreate() {
@@ -49,10 +53,7 @@ public class RootApp extends Application {
                         /* Access your remote server to get token of qiniu. */
                         return null;
                     }
-                }).build();
-    }
-
-    public static Logger getLogger() {
-        return sLogger;
+                })
+                .build();
     }
 }

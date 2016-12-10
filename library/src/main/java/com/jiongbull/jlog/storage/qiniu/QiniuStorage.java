@@ -16,6 +16,11 @@
 
 package com.jiongbull.jlog.storage.qiniu;
 
+import android.content.Context;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.jiongbull.jlog.IStorage;
 import com.jiongbull.jlog.Logger;
 import com.jiongbull.jlog.util.FileUtils;
@@ -31,11 +36,6 @@ import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.persistent.FileRecorder;
 
 import org.json.JSONObject;
-
-import android.content.Context;
-import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +59,9 @@ public abstract class QiniuStorage implements IStorage {
         mQiniuConfigs = qiniuConfigs;
         Recorder recorder = null;
         try {
-            recorder = new FileRecorder(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "jlog");
+            recorder = new FileRecorder(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
+                            + "jlog");
         } catch (IOException e) {
             Log.e(TAG, e.getMessage());
         }
@@ -94,7 +96,8 @@ public abstract class QiniuStorage implements IStorage {
             /* 搜索满足条件的日志文件. */
             File[] logFiles = LogUtils.getLogFiles(logDir);
             if (logFiles != null) {
-                logFiles = LogUtils.filterLogFiles(logFiles, logger.getZoneOffset(), logger.getLogPrefix(), logger.getLogSegment());
+                logFiles = LogUtils.filterLogFiles(logFiles, logger.getZoneOffset(),
+                        logger.getLogPrefix(), logger.getLogSegment());
             } else {
                 logFiles = new File[0];
             }
@@ -114,8 +117,7 @@ public abstract class QiniuStorage implements IStorage {
                 return; // 当前网络不可用
             }
 
-            if (!mQiniuConfigs.isAvailableInMobile()
-                    && !NetUtils.isWifiConnected(context)
+            if (!mQiniuConfigs.isAvailableInMobile() && !NetUtils.isWifiConnected(context)
                     && !NetUtils.isEthernetConnected(context)) {
                 return; // 在移动状态下禁止上传日志，当前wifi和ethernet不可用
             }
@@ -135,19 +137,22 @@ public abstract class QiniuStorage implements IStorage {
                             if (info.isOK()) {
                                 boolean deleteResult = uploadFile.delete(); // 删除已上传的文件
                                 if (!deleteResult) {
-                                    Log.e(TAG, "delete file failed, " + uploadFile.getAbsolutePath());
+                                    Log.e(TAG,
+                                            "delete file failed, " + uploadFile.getAbsolutePath());
                                 }
                             } else {
                                 int statusCode = info.statusCode;
                                 Log.e(TAG, "日志上传失败，七牛HTTP状态码: " + statusCode
-                                        + ", 状态码字典: https://github.com/qiniu/android-sdk/blob/c4cd1437aa1f2a0d68122e46b83580facdf1b74a/library/src/main/java/com/qiniu/android/http/ResponseInfo.java");
+                                        + ", 状态码字典: https://github"
+                                        + ".com/qiniu/android-sdk/blob/c4cd1437aa1f2a0d68122e46b83580facdf1b74a/library/src/main/java/com/qiniu/android/http/ResponseInfo.java");
                                 if (statusCode == ResponseInfo.InvalidToken) {
                                     mToken = getToken();
                                 }
                             }
                         }
                     };
-                    mUploadManager.put(uploadFile, uploadFile.getName(), mToken, upCompletionHandler, null);
+                    mUploadManager.put(uploadFile, uploadFile.getName(), mToken,
+                            upCompletionHandler, null);
                 }
             }
         }
